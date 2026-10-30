@@ -1,0 +1,34 @@
+spring:
+    application:
+        name: web_midterm
+
+    datasource:
+        url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}
+        username: ${POSTGRES_USER:postgres}
+        password: ${POSTGRES_PASSWORD:postgres}
+        hikari:
+            pool-name: HikariPool
+            maximum-pool-size: 10
+            minimum-idle: 2
+            max-lifetime: 1800000
+            connection-timeout: 20000
+
+    jpa:
+        hibernate:
+            ddl-auto: validate
+
+    flyway:
+        enabled: true
+        locations: db/migrations
+        validate-on-migrate: true
+
+    data:
+        redis:
+            host: ${REDIS_HOST:localhost}
+            port: ${REDIS_PORT:6379}
+            password: ${REDIS_PASSWORD:redis}
+
+
+server:
+    port: 8080
+    shutdown: immediate
