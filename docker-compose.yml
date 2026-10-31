@@ -5,10 +5,18 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-            POSTGRES_PORT: ${POSTGRES:PORT}
+            POSTGRES_PORT: ${POSTGRES_PORT}
+            POSTGRES_HOST: ${POSTGRES_HOST}
             REDIS_HOST: ${REDIS_HOST}
             REDIS_PORT: ${REDIS_PORT}
             REDIS_PASSWORD: ${REDIS_PASSWORD}
+        ports:
+            - "8080:8080"
+        depends_on:
+            - database
+            - redis
+        networks:
+            - midterm
     database:
         image: postgres:18
         environment:
