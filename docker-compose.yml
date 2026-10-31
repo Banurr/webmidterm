@@ -1,5 +1,15 @@
 services:
-    db:
+    backend:
+        image: banurr/webmidterm
+        environment:
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_PORT: ${POSTGRES:PORT}
+            REDIS_HOST: ${REDIS_HOST}
+            REDIS_PORT: ${REDIS_PORT}
+            REDIS_PASSWORD: ${REDIS_PASSWORD}
+    database:
         image: postgres:18
         environment:
             POSTGRES_DB: ${POSTGRES_DB}
@@ -9,6 +19,8 @@ services:
             - "${POSTGRES_PORT}:5432"
         volumes:
             - postgres_data:/var/lib/postgresql
+        networks:
+            - midterm
 
     redis:
         image: redis:8-alpine
@@ -17,6 +29,12 @@ services:
             - "${REDIS_PORT}:6379"
         volumes:
             - redis_data:/data
+        networks:
+            - midterm
+
+networks:
+    midterm:
+        driver: bridge
 
 volumes:
     postgres_data:
