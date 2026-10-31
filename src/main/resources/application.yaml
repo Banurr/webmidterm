@@ -19,7 +19,7 @@ spring:
 
     flyway:
         enabled: true
-        locations: db/migrations
+        locations: db/migration
         validate-on-migrate: true
 
     data:
